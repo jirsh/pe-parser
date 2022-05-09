@@ -1,4 +1,4 @@
-# pe-parser
+# pe-parser [![build](https://github.com/jirsh/pe-parser/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/jirsh/pe-parser/actions/workflows/npm-publish.yml)
 
 PE Parser for Node.JS applications
 
