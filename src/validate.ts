@@ -16,7 +16,7 @@ export function Validate(file: Buffer): Promise<ValidateReturn> {
       // Check if the magic value in the DOS header is 'MZ'
       return reject("Invalid DOS header");
 
-    const e_lfanew = file.readInt32LE(60); // New header pointer
+    const e_lfanew = file.readInt32LE(0x3c); // New header pointer
     if (0x4550 !== file.readInt32LE(e_lfanew))
       // Check if the new header signature is 'PE\0\0'
       return reject("Invalid PE header");

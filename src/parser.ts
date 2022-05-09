@@ -1,5 +1,5 @@
 type DOSHeaderType = {
-  e_magic: number;
+  e_magic: number; // Magic number
   e_cblp: number; // Bytes on last page of file
   e_cp: number; // Pages in file
   e_crlc: number; // Relocations
@@ -80,5 +80,29 @@ type PEFile = {
 };
 
 export function Parse(file: Buffer): Promise<PEFile> {
-  return new Promise((resolve, reject) => {});
+  return new Promise((resolve, reject) => {
+    let pefile: PEFile;
+    pefile.dos_header.e_magic = file.readUInt16LE(0x0);
+    pefile.dos_header.e_cblp = file.readUInt16LE(0x2);
+    pefile.dos_header.e_cp = file.readUInt16LE(0x4);
+    pefile.dos_header.e_crlc = file.readUInt16LE(0x6);
+    pefile.dos_header.e_cparhdr = file.readUInt16LE(0x8);
+    pefile.dos_header.e_minalloc = file.readUInt16LE(0xa);
+    pefile.dos_header.e_maxalloc = file.readUInt16LE(0xc);
+    pefile.dos_header.e_ss = file.readUInt16LE(0xe);
+    pefile.dos_header.e_sp = file.readUInt16LE(0x10);
+    pefile.dos_header.e_csum = file.readUInt16LE(0x12);
+    pefile.dos_header.e_ip = file.readUInt16LE(0x14);
+    pefile.dos_header.e_cs = file.readUInt16LE(0x16);
+    pefile.dos_header.e_lfarlc = file.readUInt16LE(0x18);
+    pefile.dos_header.e_ovno = file.readUInt16LE(0x1a);
+    for (let i = 0; i < 4; i++)
+      pefile.dos_header.e_res[i] = file.readUInt16LE(0x1c + i * 2);
+    pefile.dos_header.e_oemid = file.readUInt16LE(0x24);
+    pefile.dos_header.e_oeminfo = file.readUInt16LE(0x26);
+    for (let i = 0; i < 10; i++)
+      pefile.dos_header.e_res2[i] = file.readUInt16LE(0x28 + i * 2);
+    pefile.dos_header.e_lfanew = file.readUInt16LE(0x3c);
+    resolve(pefile);
+  });
 }
