@@ -8,20 +8,29 @@
     "/dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jirsh/pe-parser.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "jirsh",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jirsh/pe-parser/issues"
   },
   "homepage": "https://github.com/jirsh/pe-parser#readme",
   "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.5.0",
+    "babel-jest": "^28.1.0",
+    "jest": "^28.1.0",
+    "ts-jest": "^28.0.2",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
   },
   "dependencies": {
