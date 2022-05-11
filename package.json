@@ -1,6 +1,6 @@
 {
   "name": "pe-parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "PE Parser for Node.JS applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,9 +15,9 @@
     "type": "git",
     "url": "git+https://github.com/jirsh/pe-parser.git"
   },
-  "keywords": [],
+  "keywords": ["nodejs", "windows", "portable-executable"],
   "author": "jirsh",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/jirsh/pe-parser/issues"
   },
