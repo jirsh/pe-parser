@@ -70,8 +70,8 @@ type OptionalHeaderType = {
 
 type NTHeadersType = {
   Signature: number;
-  FileHeader: FileHeaderType;
-  OptionalHeader: OptionalHeaderType;
+  FileHeader?: FileHeaderType;
+  OptionalHeader?: OptionalHeaderType;
 };
 
 type PEFile = {
@@ -81,28 +81,33 @@ type PEFile = {
 
 export function Parse(file: Buffer): Promise<PEFile> {
   return new Promise((resolve, reject) => {
-    let pefile: PEFile;
-    pefile.dos_header.e_magic = file.readUInt16LE(0x0);
-    pefile.dos_header.e_cblp = file.readUInt16LE(0x2);
-    pefile.dos_header.e_cp = file.readUInt16LE(0x4);
-    pefile.dos_header.e_crlc = file.readUInt16LE(0x6);
-    pefile.dos_header.e_cparhdr = file.readUInt16LE(0x8);
-    pefile.dos_header.e_minalloc = file.readUInt16LE(0xa);
-    pefile.dos_header.e_maxalloc = file.readUInt16LE(0xc);
-    pefile.dos_header.e_ss = file.readUInt16LE(0xe);
-    pefile.dos_header.e_sp = file.readUInt16LE(0x10);
-    pefile.dos_header.e_csum = file.readUInt16LE(0x12);
-    pefile.dos_header.e_ip = file.readUInt16LE(0x14);
-    pefile.dos_header.e_cs = file.readUInt16LE(0x16);
-    pefile.dos_header.e_lfarlc = file.readUInt16LE(0x18);
-    pefile.dos_header.e_ovno = file.readUInt16LE(0x1a);
-    for (let i = 0; i < 4; i++)
-      pefile.dos_header.e_res[i] = file.readUInt16LE(0x1c + i * 2);
-    pefile.dos_header.e_oemid = file.readUInt16LE(0x24);
-    pefile.dos_header.e_oeminfo = file.readUInt16LE(0x26);
-    for (let i = 0; i < 10; i++)
-      pefile.dos_header.e_res2[i] = file.readUInt16LE(0x28 + i * 2);
-    pefile.dos_header.e_lfanew = file.readUInt16LE(0x3c);
+    let pefile: PEFile = {
+      dos_header: {
+        e_magic: file.readUInt16LE(0x0),
+        e_cblp: file.readUInt16LE(0x2),
+        e_cp: file.readUInt16LE(0x4),
+        e_crlc: file.readUInt16LE(0x6),
+        e_cparhdr: file.readUInt16LE(0x8),
+        e_minalloc: file.readUInt16LE(0xa),
+        e_maxalloc: file.readUInt16LE(0xc),
+        e_ss: file.readUInt16LE(0xe),
+        e_sp: file.readUInt16LE(0x10),
+        e_csum: file.readUInt16LE(0x12),
+        e_ip: file.readUInt16LE(0x14),
+        e_cs: file.readUInt16LE(0x16),
+        e_lfarlc: file.readUInt16LE(0x18),
+        e_ovno: file.readUInt16LE(0x1a),
+        e_res: [file.readUInt16LE(0x1c + 0 * 2), file.readUInt16LE(0x1c + 1 * 2), file.readUInt16LE(0x1c + 2 * 2), file.readUInt16LE(0x1c + 3 * 2)],
+        e_oemid: file.readUInt16LE(0x24),
+        e_oeminfo: file.readUInt16LE(0x26),
+        e_res2: [file.readUInt16LE(0x28 + 0 * 2), file.readUInt16LE(0x28 + 1 * 2), file.readUInt16LE(0x28 + 2 * 2), file.readUInt16LE(0x28 + 3 * 2), file.readUInt16LE(0x28 + 4 * 2), file.readUInt16LE(0x28 + 5 * 2), file.readUInt16LE(0x28 + 6 * 2), file.readUInt16LE(0x28 + 7 * 2), file.readUInt16LE(0x28 + 8 * 2), file.readUInt16LE(0x28 + 9 * 2)],
+        e_lfanew: file.readUInt16LE(0x3c)
+      },
+      nt_headers: {
+        Signature: 0,
+      }
+    };
+
     resolve(pefile);
   });
 }
