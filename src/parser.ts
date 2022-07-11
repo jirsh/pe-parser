@@ -225,12 +225,10 @@ export function Parse(file: Buffer): Promise<PEFile> {
   }
 
   return new Promise((resolve, reject) => {
-    let pefile: PEFile = {
+    resolve({
       dos_header,
       nt_headers,
       sections,
-    };
-
-    resolve(pefile);
+    });
   });
 }
