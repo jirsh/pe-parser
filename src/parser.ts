@@ -208,7 +208,10 @@ export function Parse(file: Buffer): Promise<PEFile> {
   for (let i: number = 0; i < nt_headers.FileHeader.NumberOfSections; i++) {
     const offs = sectionsOffset + i * 0x28;
     sections.push({
-      Name: file.slice(offs, offs + 8).toString("ascii"),
+      Name: file
+        .slice(offs, offs + 8)
+        .toString()
+        .replace(/\0/g, ""),
       VirtualSize: file.readUint32LE(offs + 8),
       VirtualAddress: file.readUint32LE(offs + 12),
       SizeOfRawData: file.readUint32LE(offs + 16),
