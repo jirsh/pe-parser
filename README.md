@@ -14,3 +14,13 @@ try {
   console.error(e);
 }
 ```
+
+### Parsing example
+
+```js
+// The parse function does not throw any errors as it assumes that the buffer is validated
+
+const { dos_header, nt_headers, sections } = await Parse(file);
+
+console.log(dos_header, nt_headers, sections);
+```
