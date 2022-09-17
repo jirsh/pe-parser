@@ -99,11 +99,11 @@ export function Parse(file: Buffer): Promise<PEFile> {
   const PE64 = 523 === file.readUint16LE(e_lfanew + 0x18);
 
   let directories: IMAGE_DATA_DIRECTORY[] = [];
-  const directoryOffset = PE64 ? 0x88 : 0x78;
+  const directoryOffset = PE64 ? 0x180 : 0x170;
   for (let i = 0; i < 16; i++) {
     directories.push({
-      VirtualAddress: file.readUint32LE(directoryOffset + i * 4),
-      Size: file.readUint32LE(4 + directoryOffset + i * 4),
+      VirtualAddress: file.readUint32LE(directoryOffset + i * 8),
+      Size: file.readUint32LE(4 + directoryOffset + i * 8),
     });
   }
 
