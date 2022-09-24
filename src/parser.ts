@@ -1,4 +1,4 @@
-type DOSHeaderType = {
+export type DOSHeaderType = {
   e_magic: number; // Magic number
   e_cblp: number; // Bytes on last page of file
   e_cp: number; // Pages in file
@@ -20,7 +20,7 @@ type DOSHeaderType = {
   e_lfanew: number; // File address of new exe header
 };
 
-type FileHeaderType = {
+export type FileHeaderType = {
   Machine: number;
   NumberOfSections: number;
   TimeDateStamp: number;
@@ -30,12 +30,12 @@ type FileHeaderType = {
   Characteristics: number;
 };
 
-type IMAGE_DATA_DIRECTORY = {
+export type IMAGE_DATA_DIRECTORY = {
   VirtualAddress: number;
   Size: number;
 };
 
-type OptionalHeaderType = {
+export type OptionalHeaderType = {
   Magic: number;
   MajorLinkerVersion: number;
   MinorLinkerVersion: number;
@@ -69,13 +69,13 @@ type OptionalHeaderType = {
   DataDirectory: IMAGE_DATA_DIRECTORY[];
 };
 
-type NTHeadersType = {
+export type NTHeadersType = {
   Signature: number;
   FileHeader: FileHeaderType;
   OptionalHeader: OptionalHeaderType;
 };
 
-type IMAGE_SECTION_HEADER = {
+export type IMAGE_SECTION_HEADER = {
   Name: string;
   VirtualSize: number;
   VirtualAddress: number;
@@ -88,7 +88,7 @@ type IMAGE_SECTION_HEADER = {
   Characteristics: number;
 };
 
-type PEFile = {
+export type PEFile = {
   dos_header: DOSHeaderType;
   nt_headers: NTHeadersType;
   sections: IMAGE_SECTION_HEADER[];
